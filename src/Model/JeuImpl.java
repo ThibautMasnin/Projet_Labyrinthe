@@ -28,4 +28,16 @@ public class JeuImpl implements Jeu {
         // TODO Auto-generated method stub
         return null;
     }
+
+    private void preparer() {
+        // TODO
+    }
+
+    public static void jouer() {
+        // TODO
+    }
+
+    private Joueur prochainJoueur() {
+        // TODO
+    }
 }

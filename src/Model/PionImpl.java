@@ -22,4 +22,8 @@ public class PionImpl implements Pion {
         // TODO Auto-generated method stub
         return null;
     }
+
+    public static void poserA(Position pos) {
+        // TODO
+    }
 }

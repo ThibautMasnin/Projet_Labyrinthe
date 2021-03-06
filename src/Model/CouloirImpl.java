@@ -27,4 +27,8 @@ public class CouloirImpl implements Couloir {
         // TODO Auto-generated method stub
         return null;
     }
+
+    public static void decaler(Orientation orientation) {
+        // TODO
+    }
 }

@@ -16,18 +16,25 @@ public class JoueurImpl implements Joueur {
     @Override
     public void joue() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void fixerObjectifs(ArrayList<Objectif> objectifs) {
-        // TODO Auto-generated method stub
-
+        this.objectifs=objectifs;
     }
 
     @Override
     public void recevoirPion(Pion p) {
-        // TODO Auto-generated method stub
+        this.pion=p;
+    }
 
+    private PositionInsertion choisirPositionInsertionCouloir() {
+        // TODO
+        return null;
+    }
+
+    private Orientation choisirOrientationCouloir() {
+        // TODO
+        return null;
     }
 }
