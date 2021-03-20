@@ -1,12 +1,20 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class JoueurImpl implements Joueur {
+    private Jeu jeu;
     private Pion pion;
     private int age;
-    private Jeu jeu;
-    private ArrayList<Objectif> objectifs;
+    private Collection<Objectif> objectifs;
+
+
+    public JoueurImpl(Jeu jeu, int age) {
+        this.age = age;
+        this.jeu = jeu;
+        this.objectifs = new ArrayList<>();
+    }
 
     @Override
     public int getAge() {
@@ -36,5 +44,10 @@ public class JoueurImpl implements Joueur {
     private Orientation choisirOrientationCouloir() {
         // TODO
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Age : " + this.age + ", Couleur : " + this.pion.getCouleur() ;
     }
 }

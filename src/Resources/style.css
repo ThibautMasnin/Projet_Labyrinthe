@@ -1,0 +1,75 @@
+/* COMBO BOX */
+.combo-box {
+    border-color:  white;
+    border-radius: 3px;
+    -fx-border-color:  white;
+    -fx-border-radius: 3px;
+}  
+
+.combo-box-popup .list-view {
+    background-color: transparent;
+    border-color:  white;
+    border-width: 0px 1px 1px 1px;
+    -fx-background-color: transparent;
+    -fx-border-color:  white;
+    -fx-border-width: 0px 1px 1px 1px;
+} 
+
+.combo-box, .combo-box-popup .list-cell {
+    background-color: rgba(0,0,0,0.5);
+    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-mark-color: transparent; 
+}
+
+.combo-box-popup .list-cell:selected { 
+    background-color: rgba(50,50,50,0.5); 
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:hover { 
+    background-color: white; 
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box .list-cell { 
+    -fx-text-fill: white;
+}
+
+/* SPINNER */
+.spinner, .spinner:focused, .spinner:contains-focus {
+    background-color:  white;
+    -fx-background-color:  white;
+} 
+
+.spinner .text-field {
+    background-color:  rgba(0,0,0,0.5);
+    border-color:  white;
+    border-radius: 3px 0 0 3px;
+    -fx-background-color:  rgba(0,0,0,0.5);
+    -fx-border-color:  white;
+    -fx-border-radius: 3px 0 0 3px;
+    -fx-text-fill: white;
+}
+
+.spinner .increment-arrow-button {
+    background-color:  white;
+    border-width: 0 0 1px 0;
+    border-color:  black;
+    border-radius: 0 3px 0 0;
+    -fx-background-color:  white;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color:  black;
+    -fx-border-radius: 0 3px 0 0;
+}
+
+.spinner .decrement-arrow-button {
+    background-color:  white;
+    -fx-background-color:  white;
+}
+
+.spinner .increment-arrow-button .increment-arrow, .spinner .decrement-arrow-button .decrement-arrow {
+    background-color:  black;
+    -fx-background-color:  black;
+}

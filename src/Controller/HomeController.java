@@ -1,61 +1,50 @@
 package Controller;
 
-import java.util.Optional;
+import java.awt.event.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 import View.CreditsView;
 import View.ParametresView;
 import View.ReglesView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.stage.Stage;
+import View.SelectPlayersView;
 
-public class HomeController<T extends ActionEvent> implements EventHandler<T> {
+public class HomeController implements ActionListener {
 
-    private Stage stage;
+    private JFrame frame;
 
-    public HomeController(Stage stage) {
+    public HomeController(JFrame frame) {
         super();
-        this.stage = stage;
+        this.frame = frame;
     }
 
     @Override
-    public void handle(T event) {
-		if(event.getSource() instanceof Button) {
-            if("Jouer".equals(((Button) event.getSource()).getId())) {
-                new ParametresView(stage);
+    public void actionPerformed(ActionEvent event) {
+		if(event.getSource() instanceof JButton) {
+            if("Jouer".equals(((JButton) event.getSource()).getName())) {
+                new SelectPlayersView(frame);
             }
-            else if("Regles".equals(((Button) event.getSource()).getId())) {
-                new ReglesView(stage);
+            else if("Regles".equals(((JButton) event.getSource()).getName())) {
+                new ReglesView(frame);
             }
-            else if("Credits".equals(((Button) event.getSource()).getId())) {
-                new CreditsView(stage);
+            else if("Credits".equals(((JButton) event.getSource()).getName())) {
+                new CreditsView(frame);
             }
-            else if("Parametres".equals(((Button) event.getSource()).getId())) {
-                new ParametresView(stage);
+            else if("Parametres".equals(((JButton) event.getSource()).getName())) {
+                new ParametresView(frame);
             }
-            else if ("Quitter".equals(((Button) event.getSource()).getId())) {
-				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("Confirmer la fermeture");
-				alert.setContentText("Voulez vous vraiment quitter le jeu ?");
-				ButtonType btnOui = new ButtonType("Quitter");
-				ButtonType btnNon = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);
-				alert.getButtonTypes().setAll(btnOui, btnNon);
-				Optional<ButtonType> result = alert.showAndWait();
-				if (result.isPresent() && result.get() == btnOui) {
-					System.exit(0);
-				}			
-			}
+            else  if("Quitter".equals(((JButton) event.getSource()).getName())) {
+                System.exit(0);
+            }
             else {
-                System.out.println("Erreur d'event dans le menu");
+                System.out.println("Erreur d'event dans : " + this.getClass().toString());
+                System.out.println("Event : " + event.toString());
             }
         }
         else {
-            System.out.println("Erreur d'event dans le menu");
+            System.out.println("Erreur d'event dans : " + this.getClass().toString());
+            System.out.println("Event : " + event.toString());
         }
     }
+    
 }
