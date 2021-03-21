@@ -50,4 +50,8 @@ public class JoueurImpl implements Joueur {
     public String toString() {
         return "Age : " + this.age + ", Couleur : " + this.pion.getCouleur() ;
     }
+
+    public Collection<Objectif> getObjectifs(){
+        return this.objectifs;
+    }
 }

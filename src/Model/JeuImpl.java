@@ -39,13 +39,24 @@ public class JeuImpl implements Jeu {
         // TODO
     }
 
-    public void jouer() {
+    void jouer() {
+        // TODO
         preparer();
+        Joueur joueur = ((ArrayList<Joueur>) this.joueurs).get(0);
+        do{
+            joueur=prochainJoueur(joueur);
+            joueur.joue();
+
+        }while(!aGagne(joueur));
     }
 
-    private Joueur prochainJoueur() {
+    private Joueur prochainJoueur(Joueur joueur){
         // TODO
-        return null;
+        return ((ArrayList<Joueur>) this.joueurs).get(((((ArrayList<Joueur>) this.joueurs).indexOf(joueur))+1) % (this.joueurs.size()));
+    }
+
+    private boolean aGagne(Joueur joueur){
+        return joueur.getObjectifs().isEmpty();
     }
 
     public Plateau getPlateau() {
