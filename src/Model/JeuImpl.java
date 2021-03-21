@@ -10,6 +10,7 @@ public class JeuImpl implements Jeu {
     private Objectif[] objectifs;
     private ArrayList<CouloirMobile> couloirsMobiles;
     private Plateau plateau;
+    private Joueur joueur;
 
     @Override
     public void modifierCouloirs(PositionInsertion pos, Orientation orientation) {
@@ -42,17 +43,21 @@ public class JeuImpl implements Jeu {
     void jouer() {
         // TODO
         preparer();
-        Joueur joueur = ((ArrayList<Joueur>) this.joueurs).get(0);
+        Joueur joueur;
         do{
-            joueur=prochainJoueur(joueur);
+            joueur=prochainJoueur();
             joueur.joue();
 
         }while(!aGagne(joueur));
     }
 
-    private Joueur prochainJoueur(Joueur joueur){
+    private Joueur prochainJoueur(){
         // TODO
-        return ((ArrayList<Joueur>) this.joueurs).get(((((ArrayList<Joueur>) this.joueurs).indexOf(joueur))+1) % (this.joueurs.size()));
+        if(joueur==null){
+            return ((ArrayList<Joueur>) this.joueurs).get(0);
+        }else{
+            return ((ArrayList<Joueur>) this.joueurs).get(((((ArrayList<Joueur>) this.joueurs).indexOf(joueur))+1) % (this.joueurs.size()));
+        }
     }
 
     private boolean aGagne(Joueur joueur){
