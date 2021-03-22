@@ -4,26 +4,44 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
+import Model.JeuImpl;
 import View.HomeView;
 import View.JComponentBuilder;
+import View.ParametresView;
 import View.SelectPlayersView;
 
 import java.awt.event.*;
 
-public class SelectPlayersController implements ActionListener, ItemListener {
+public class SelectPlayersController implements ActionListener {
 
     private JFrame frame;
+    int nbJoueurs;
+    private int age1;
+    private int age2;
+    private int age3;
+    private int age4;
 
     public SelectPlayersController(JFrame frame) {
         super();
         this.frame = frame;
     }
 
+    public SelectPlayersController(JFrame frame, int nbJoueurs, int age1, int age2, int age3, int age4) {
+        super();
+        this.frame = frame;
+        this.nbJoueurs = nbJoueurs;
+        this.age1 = age1;
+        this.age2 = age2;
+        this.age3 = age3;
+        this.age4 = age4;
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
 		if(event.getSource() instanceof JButton) {
             if("Jouer".equals(((JButton) event.getSource()).getName())) {
-                System.out.println("Jouer");
+                new JeuImpl().enregistrer(nbJoueurs, age1, age2, age3, age4);
+                new ParametresView(frame);
             }
             else if("Retour".equals(((JButton) event.getSource()).getName())) {
                 new HomeView(frame);
@@ -33,23 +51,19 @@ public class SelectPlayersController implements ActionListener, ItemListener {
                 System.out.println("Event : " + event.toString());
             }
         }
-        else {
-            System.out.println("Erreur d'event dans : " + this.getClass().toString());
-            System.out.println("Event : " + event.toString());
-        }
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent event) {
-        if(event.getStateChange()==ItemEvent.SELECTED) {
-            if(event.getSource() instanceof JComboBox) {
-                new SelectPlayersView(JComponentBuilder.frameBuilder(), ((Integer)((JComboBox)event.getSource()).getSelectedItem()).intValue(), 7, 7);
+        else if(event.getSource() instanceof JComboBox) {
+            if("nbJoueurs".equals(((JComboBox) event.getSource()).getName())) {
+                new SelectPlayersView(JComponentBuilder.frameBuilder(), nbJoueurs, age1, age2, age3, age4);
                 frame.dispose();
             }
             else {
                 System.out.println("Erreur d'event dans : " + this.getClass().toString());
                 System.out.println("Event : " + event.toString());
-            } 
+            }
+        }
+        else {
+            System.out.println("Erreur d'event dans : " + this.getClass().toString());
+            System.out.println("Event : " + event.toString());
         }
     }
     
