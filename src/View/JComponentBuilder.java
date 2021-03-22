@@ -9,7 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextPane;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -24,7 +30,7 @@ public interface JComponentBuilder {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setLayout(new BorderLayout());
-        frame.setIconImage(imageIconBuilder("Images/icon.png").getImage());
+        //frame.setIconImage(imageIconBuilder("Images/icon.png").getImage());
         return frame;
     }
 
@@ -129,8 +135,66 @@ public interface JComponentBuilder {
         return vBox;
     }
     
+	/** RETOURNE UN TEXT STYLISE **/
+    public static JTextPane textBuilder(String text, int pos) {
+        JTextPane textPane = new JTextPane();
+        textPane.setText(text);
+        textPane.setFont(new Font("Arial", Font.PLAIN, 24));
+		textPane.setForeground(Color.WHITE);
+        textPane.setEditable(false);
+        textPane.setOpaque(false);
+        StyledDocument doc = textPane.getStyledDocument();
+        SimpleAttributeSet align = new SimpleAttributeSet();
+        StyleConstants.setAlignment(align, pos);
+        doc.setParagraphAttributes(0, doc.getLength(), align, false);
+        return textPane;
+	}
+    public static JTextPane textBuilder(String text, int pos, int width, int height) {
+        JTextPane textPane = new JTextPane();
+        textPane.setText(text);
+        textPane.setFont(new Font("Arial", Font.PLAIN, 24));  
+		textPane.setForeground(Color.WHITE);
+        textPane.setEditable(false);
+        textPane.setOpaque(false);
+        StyledDocument doc = textPane.getStyledDocument();
+        SimpleAttributeSet align = new SimpleAttributeSet();
+        StyleConstants.setAlignment(align, pos);
+        doc.setParagraphAttributes(0, doc.getLength(), align, false);
+        textPane.setPreferredSize(new Dimension(width,height));
+        return textPane;
+	}
+    
+	/** RETOURNE UN LABEL STYLISE **/
+    public static JLabel labelBuilder(String text, int pos) {
+        JLabel label = new JLabel(text, pos);
+		label.setFont(new Font("Viner Hand ITC", Font.PLAIN, 32));
+		label.setForeground(Color.WHITE);
+        return label;
+	}
+    public static JLabel labelBuilder(String text, int pos, int width) {
+        JLabel label = new JLabel(text, pos);
+		label.setFont(new Font("Viner Hand ITC", Font.PLAIN, 32));
+		label.setForeground(Color.WHITE);
+        label.setPreferredSize(new Dimension(width,40));
+        return label;
+	}
+    public static JLabel labelBuilder(String text, int pos, Color color) {
+        JLabel label = new JLabel(text, pos);
+		label.setFont(new Font("Viner Hand ITC", Font.PLAIN, 32));
+		label.setForeground(color);
+        return label;
+	}
+    
+	/** RETOURNE UN SPINNER STYLISE **/
+    public static JSpinner spinnerBuilder(int min, int max, int byDefault) {
+        JSpinner spinner = new JSpinner();
+        spinner.setModel(new SpinnerNumberModel(byDefault, min, max, 1));
+        spinner.setPreferredSize(new Dimension(150,30));  
+        return spinner;
+	}  
+    
 
-    /** RETORUNE L'IMAGEICON CORRESPONDANT A L'URL **/
+    /** RETOURNE L'IMAGEICON CORRESPONDANT A L'URL **/
     public static ImageIcon imageIconBuilder(String url) {
         return new ImageIcon(JComponentBuilder.class.getResource("/Resources/" + url));
     }
