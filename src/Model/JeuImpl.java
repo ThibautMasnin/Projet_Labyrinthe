@@ -6,11 +6,10 @@ import java.util.Collection;
 public class JeuImpl implements Jeu {
     private CouloirMobile supplementaire;
     PositionInsertion positionOrigine;
-    private Collection<Joueur> joueurs = new ArrayList<>();
+    private ArrayList<Joueur> joueurs = new ArrayList<>();
     private Objectif[] objectifs;
     private ArrayList<CouloirMobile> couloirsMobiles;
     private Plateau plateau;
-    private Joueur joueur;
 
     @Override
     public void modifierCouloirs(PositionInsertion pos, Orientation orientation) {
@@ -40,24 +39,25 @@ public class JeuImpl implements Jeu {
         // TODO
     }
 
-    void jouer() {
-        // TODO
+    public void jouer() {
         preparer();
-        Joueur joueur;
+        Joueur joueur=null;
         do{
-            joueur=prochainJoueur();
+            if(joueur==null) {
+                joueur=joueurs.get(0);
+            }
+            else {
+                joueur=prochainJoueur();
+            }
             joueur.joue();
 
-        }while(!aGagne(joueur));
+        } while(!aGagne(joueur));
     }
 
     private Joueur prochainJoueur(){
-        // TODO
-        if(joueur==null){
-            return ((ArrayList<Joueur>) this.joueurs).get(0);
-        }else{
-            return ((ArrayList<Joueur>) this.joueurs).get(((((ArrayList<Joueur>) this.joueurs).indexOf(joueur))+1) % (this.joueurs.size()));
-        }
+        joueurs.add(joueurs.get(0));
+        joueurs.remove(0);
+        return joueurs.get(0);
     }
 
     private boolean aGagne(Joueur joueur){
