@@ -67,10 +67,9 @@ public class BoardView {
         JLabel objectif = null;
         if(joueur.getObjectifs().isEmpty()) {
             objectif = new JLabel(JComponentBuilder.imageIconBuilder("Couloirs/spawn" + joueur.getPion().getCouleur().name() + ".png", 100, 100));
-
         }
         else {
-            objectif = new JLabel(JComponentBuilder.imageIconBuilder("Objectifs/" + joueur.getObjectifActuel().name() + ".png", 100, 100));
+            objectif = new JLabel(JComponentBuilder.imageIconBuilder("Objectifs/" + joueur.getObjectifActuel().name().toLowerCase() + ".png", 100, 100));
         }
 		JLabel lblRestant = JComponentBuilder.labelBuilder("Restant : " + joueur.getObjectifs().size(), SwingConstants.CENTER);
 

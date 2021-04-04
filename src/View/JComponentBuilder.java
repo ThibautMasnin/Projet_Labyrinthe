@@ -102,7 +102,7 @@ public interface JComponentBuilder {
         button.setName("supp" + couloir.getOrientation().name().charAt(0));
         ImageIcon icon = imageIconBuilder("Couloirs/" + couloir.getForme().name() + couloir.getOrientation().name().charAt(0) + ".png", dim.height/12, dim.height/12);
         if(couloir.getObjectif() != null) {
-            icon = mergeImage(icon, imageIconBuilder("Objectifs/" + couloir.getObjectif().name() + ".png", dim.height/12, dim.height/12));
+            icon = mergeImage(icon, imageIconBuilder("Objectifs/" + couloir.getObjectif().name().toLowerCase() + ".png", dim.height/12, dim.height/12));
         }
         if(!selected) {
             icon = mergeImage(icon, imageIconBuilder("Couloirs/filtre.png", dim.height/12, dim.height/12));
@@ -123,7 +123,7 @@ public interface JComponentBuilder {
         button.setName(i+","+j);
         ImageIcon icon = imageIconBuilder("Couloirs/" + couloir.getForme().name() + couloir.getOrientation().name().charAt(0) + ".png", dim.height/12, dim.height/12);
         if(couloir.getObjectif() != null) {
-            icon = mergeImage(icon, imageIconBuilder("Objectifs/" + couloir.getObjectif().name() + ".png", dim.height/12, dim.height/12));
+            icon = mergeImage(icon, imageIconBuilder("Objectifs/" + couloir.getObjectif().name().toLowerCase() + ".png", dim.height/12, dim.height/12));
         }
         else {
             for(Joueur joueur : joueurs) {
@@ -300,5 +300,35 @@ public interface JComponentBuilder {
         g2d.dispose(); 
       
         return new ImageIcon(image1) ; 
+    }
+
+    public static ImageIcon joinImage(ImageIcon icon1,ImageIcon icon2) {
+        BufferedImage img1 = new BufferedImage(icon1.getImage().getWidth(null), icon1.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D Gr1 = img1.createGraphics();
+        Gr1.drawImage(icon1.getImage(), 0, 0, null);
+        Gr1.dispose();
+        BufferedImage img2 = new BufferedImage(icon2.getImage().getWidth(null), icon2.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D Gr2 = img2.createGraphics();
+        Gr2.drawImage(icon2.getImage(), 0, 0, null);
+        Gr2.dispose();
+
+        //do some calculate first
+        int offset  = 5;
+        int width = img1.getWidth()+img2.getWidth()+offset;
+        int height = Math.max(img1.getHeight(),img2.getHeight())+offset;
+        //create a new buffer and draw two image into the new image
+        BufferedImage newImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = newImage.createGraphics();
+        Color oldColor = g2.getColor();
+        //fill background
+        g2.setPaint(Color.WHITE);
+        g2.fillRect(0, 0, width, height);
+        //draw image
+        g2.setColor(oldColor);
+        g2.drawImage(img1, null, 0, 0);
+        g2.drawImage(img2, null, img1.getWidth()+offset, 0);
+        g2.dispose();
+
+        return new ImageIcon(newImage);
     }
 }

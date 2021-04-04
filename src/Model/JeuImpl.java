@@ -2,7 +2,6 @@ package Model;
 
 import View.BoardView;
 import View.EndView;
-import View.JComponentBuilder;
 
 import javax.swing.JFrame;
 
@@ -126,7 +125,7 @@ public class JeuImpl extends Thread implements Jeu {
             else {
                 first = false;
             }
-            new BoardView(JComponentBuilder.frameBuilder(), this, joueur);
+            new BoardView(frame, this, joueur);
             joueur.modifieCouloir();
             new BoardView(frame, this, joueur);
             joueur.deplacePion();

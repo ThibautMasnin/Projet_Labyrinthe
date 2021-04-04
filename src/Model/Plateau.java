@@ -45,7 +45,6 @@ public class Plateau {
     public CouloirMobile modifierCouloirs(PositionInsertion position, CouloirMobile supplementaire) {
         int i, j;
         CouloirMobile tmpCouloir;
-        ArrayList<Pion> pions;
         supplementaire.poser();
         switch(position) {
             case H1:
