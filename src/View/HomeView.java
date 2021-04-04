@@ -23,7 +23,7 @@ public class HomeView {
         JPanel panel = new JPanel();
         panel.add(JComponentBuilder.vboxBuilder(10, JComponentBuilder.verticalSpace(50), title, JComponentBuilder.verticalSpace(100), btnJouer, btnRegles, btnCredits, btnParametres, btnQuitter));
         
-        frame.setContentPane(JComponentBuilder.paneBuilder("Images/background.png", panel));
+        frame.setContentPane(JComponentBuilder.paneBuilder("Images/background.gif", panel));
         frame.setVisible(true);
     }
 }

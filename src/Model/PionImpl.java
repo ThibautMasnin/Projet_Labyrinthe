@@ -10,35 +10,55 @@ public class PionImpl implements Pion {
         this.couleur = couleur;
         this.plateau = plateau;
         if(couleur==Couleur.ROUGE) {
-            this.positionInitiale = new Position(1,1);
-            this.positionCourante = new Position(1,1);           
+            this.positionInitiale = new Position(0,0);
+            this.positionCourante = new Position(0,0);           
         }
         else if(couleur==Couleur.VERT) {
-            this.positionInitiale = new Position(7,7);
-            this.positionCourante = new Position(7,7);  
+            this.positionInitiale = new Position(6,6);
+            this.positionCourante = new Position(6,6);  
         }
         else if(couleur==Couleur.BLEU) {
-            this.positionInitiale = new Position(1,7);
-            this.positionCourante = new Position(1,7);  
+            this.positionInitiale = new Position(0,6);
+            this.positionCourante = new Position(0,6);  
         }
         else {
-            this.positionInitiale = new Position(7,1);
-            this.positionCourante = new Position(7,1);  
+            this.positionInitiale = new Position(6,0);
+            this.positionCourante = new Position(6,0);  
         }
     }
     
     @Override
     public Couleur getCouleur() {
-        return couleur;
+        return this.couleur;
+    }
+    
+    @Override
+    public Position getPositionCourante() {
+        return this.positionCourante;
+    }
+    
+    @Override
+    public Position getPositionInitiale() {
+        return this.positionInitiale;
     }
 
     @Override
     public Objectif deplacer(Position pos) {
-        // TODO Auto-generated method stub
-        return null;
+        plateau.getCouloir(positionCourante).getPions().remove(this);
+        positionCourante = pos;
+        plateau.getCouloir(positionCourante).getPions().add(this);
+        return plateau.getCouloir(pos).getObjectif();
     }
 
-    public static void poserA(Position pos) {
-        // TODO
+    @Override
+    public void poserA(Position pos) {
+        plateau.getCouloir(positionCourante).getPions().remove(this);
+        positionCourante = pos;
+        plateau.getCouloir(positionCourante).getPions().add(this);
+    }
+    
+    @Override
+    public void setPositionCourante(Position pos) {
+        this.positionCourante = pos;
     }
 }

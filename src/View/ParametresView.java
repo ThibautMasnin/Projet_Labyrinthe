@@ -22,7 +22,7 @@ public class ParametresView {
         JPanel panel = new JPanel();
         panel.add(JComponentBuilder.vboxBuilder(50, text, btnRetour));
         
-        frame.setContentPane(JComponentBuilder.paneBuilder("Images/background.png", panel));
+        frame.setContentPane(JComponentBuilder.paneBuilder("Images/background.gif", panel));
         frame.setVisible(true);
     }    
 }

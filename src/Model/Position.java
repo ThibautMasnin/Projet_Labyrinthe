@@ -24,4 +24,17 @@ public class Position {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return "("+x+","+y+")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Position && ((Position)obj).getX()==x && ((Position)obj).getY()==y) {
+            return true;
+        }
+        return false;
+    }
 }

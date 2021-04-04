@@ -7,4 +7,6 @@ public interface Couloir {
     public Forme getForme();
     public Objectif getObjectif();
     public ArrayList<Pion> getPions();
+    public void setOrientation(Orientation orientation);
+    public ArrayList<Direction> getDirections();
 }

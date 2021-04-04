@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import Model.JeuImpl;
 import View.HomeView;
 import View.JComponentBuilder;
-import View.ParametresView;
 import View.SelectPlayersView;
 
 import java.awt.event.*;
@@ -39,9 +38,10 @@ public class SelectPlayersController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
 		if(event.getSource() instanceof JButton) {
-            if("Jouer".equals(((JButton) event.getSource()).getName())) {
-                new JeuImpl().enregistrer(nbJoueurs, age1, age2, age3, age4);
-                new ParametresView(frame);
+            if("Jouer".equals(((JButton) event.getSource()).getName())) { 
+                JeuImpl jeu = new JeuImpl(frame);
+                jeu.enregistrer(nbJoueurs, age1, age2, age3, age4);
+                jeu.start();  
             }
             else if("Retour".equals(((JButton) event.getSource()).getName())) {
                 new HomeView(frame);

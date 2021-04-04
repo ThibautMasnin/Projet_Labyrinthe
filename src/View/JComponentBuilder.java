@@ -17,7 +17,15 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import Model.Couloir;
+import Model.Pion;
+import Model.PositionInsertion;
+import Model.Joueur;
+
+import java.util.ArrayList;
+
 import java.awt.*;
+import java.awt.image.*;
 import java.awt.event.*;
 
 public interface JComponentBuilder {
@@ -30,7 +38,7 @@ public interface JComponentBuilder {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setLayout(new BorderLayout());
-        //frame.setIconImage(imageIconBuilder("Images/icon.png").getImage());
+        frame.setIconImage(imageIconBuilder("Images/icon.png").getImage());
         return frame;
     }
 
@@ -63,6 +71,74 @@ public interface JComponentBuilder {
         button.setSize(328, 70);
         button.setName(name);
         button.setIcon(imageIconBuilder("Boutons/btn" + name + ".png"));
+        button.addActionListener(listenner);
+        return button;
+    }
+
+    public static JButton buttonFlecheBuilder(PositionInsertion pos, ActionListener listenner, PositionInsertion origine) {
+		JButton button = new JButton();
+		button.setOpaque(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setBorder(null);
+        button.setSize(328, 70);
+        button.setName(pos.name());
+        button.setIcon(imageIconBuilder("Boutons/btnFleche" + pos.name().charAt(0) + ".png"));
+        button.addActionListener(listenner);
+        button.setEnabled(origine==null || !origine.equals(pos));
+        return button;
+    }
+    
+	/** RETOURNE UN BOUTON COULOIR **/
+    public static JButton couloirSuppBuilder(Couloir couloir, ActionListener listenner, boolean selected) {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		JButton button = new JButton();
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setBorder(null);
+        button.setSize(dim.height/12, dim.height/12);
+        button.setName("supp" + couloir.getOrientation().name().charAt(0));
+        ImageIcon icon = imageIconBuilder("Couloirs/" + couloir.getForme().name() + couloir.getOrientation().name().charAt(0) + ".png", dim.height/12, dim.height/12);
+        if(couloir.getObjectif() != null) {
+            icon = mergeImage(icon, imageIconBuilder("Objectifs/" + couloir.getObjectif().name() + ".png", dim.height/12, dim.height/12));
+        }
+        if(!selected) {
+            icon = mergeImage(icon, imageIconBuilder("Couloirs/filtre.png", dim.height/12, dim.height/12));
+        }
+        button.setIcon(icon);
+        button.addActionListener(listenner);
+        return button;
+    }
+    public static JButton couloirBuilder(int i, int j, ArrayList<Joueur> joueurs, Couloir couloir, ActionListener listenner, boolean atteignable) {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        JButton button;
+		button = new JButton();
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setBorder(null);
+        button.setSize(dim.height/12, dim.height/12);
+        button.setName(i+","+j);
+        ImageIcon icon = imageIconBuilder("Couloirs/" + couloir.getForme().name() + couloir.getOrientation().name().charAt(0) + ".png", dim.height/12, dim.height/12);
+        if(couloir.getObjectif() != null) {
+            icon = mergeImage(icon, imageIconBuilder("Objectifs/" + couloir.getObjectif().name() + ".png", dim.height/12, dim.height/12));
+        }
+        else {
+            for(Joueur joueur : joueurs) {
+                if(i==joueur.getPion().getPositionInitiale().getX() && j==joueur.getPion().getPositionInitiale().getY()) {
+                    icon = mergeImage(icon, imageIconBuilder("Couloirs/spawn" + joueur.getPion().getCouleur().name() + ".png", dim.height/12, dim.height/12));
+                }
+            }
+        }
+        for(Pion pion : couloir.getPions()) {
+            icon = mergeImage(icon, imageIconBuilder("Couloirs/pion" + pion.getCouleur().name() + ".png", dim.height/12, dim.height/12));
+        }
+        if(!atteignable) {
+            icon = mergeImage(icon, imageIconBuilder("Couloirs/filtre.png", dim.height/12, dim.height/12));
+        }
+        button.setIcon(icon);
         button.addActionListener(listenner);
         return button;
     }
@@ -107,7 +183,6 @@ public interface JComponentBuilder {
         hBox.add(Box.createHorizontalGlue());
         hBox.add(component);
         hBox.add(Box.createHorizontalGlue());
-        component.setOpaque(false);
         return hBox;
     }
 
@@ -117,7 +192,6 @@ public interface JComponentBuilder {
         vBox.add(Box.createVerticalGlue());
         vBox.add(component);
         vBox.add(Box.createVerticalGlue());
-        component.setOpaque(false);
         return vBox;
     }
     
@@ -197,5 +271,34 @@ public interface JComponentBuilder {
     /** RETOURNE L'IMAGEICON CORRESPONDANT A L'URL **/
     public static ImageIcon imageIconBuilder(String url) {
         return new ImageIcon(JComponentBuilder.class.getResource("/Resources/" + url));
+    }
+
+    /** RETOURNE L'IMAGEICON CORRESPONDANT A L'URL AVEC LA TAILLE DEMANDEE **/
+    public static ImageIcon imageIconBuilder(String url, int width, int height) {
+        ImageIcon original = new ImageIcon(JComponentBuilder.class.getResource("/Resources/" + url));
+        Image resized = original.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(resized);
+    }
+
+    /** RETOURNE L'IMAGEICON QUI SUPERPOSE LES 2 EN PARAMETRES **/
+    public static ImageIcon mergeImage(ImageIcon icon1, ImageIcon icon2){ 
+        BufferedImage image1 = new BufferedImage(icon1.getImage().getWidth(null), icon1.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D Gr1 = image1.createGraphics();
+        Gr1.drawImage(icon1.getImage(), 0, 0, null);
+        Gr1.dispose();
+        BufferedImage image2 = new BufferedImage(icon2.getImage().getWidth(null), icon2.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D Gr2 = image2.createGraphics();
+        Gr2.drawImage(icon2.getImage(), 0, 0, null);
+        Gr2.dispose();
+
+        Graphics2D g2d = image1.createGraphics(); 
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                        RenderingHints.VALUE_ANTIALIAS_ON); 
+        g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                        RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g2d.drawImage(image2, 0, 0, null); 
+        g2d.dispose(); 
+      
+        return new ImageIcon(image1) ; 
     }
 }

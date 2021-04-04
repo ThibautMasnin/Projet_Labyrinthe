@@ -16,7 +16,7 @@ public class CreditsView {
         
 		/** PARAGRAPHE Credits **/
 		JLabel label = JComponentBuilder.labelBuilder("Jeu développé par :", SwingConstants.CENTER);
-		JTextPane text = JComponentBuilder.textBuilder("Thibaut MASNIN\n\n&\n\nKévin LEFEBVRE\n\n", StyleConstants.ALIGN_CENTER);
+		JTextPane text = JComponentBuilder.textBuilder("Thibaut MASNIN\n\n", StyleConstants.ALIGN_CENTER);
 		
 		/** BOUTON RETOUR **/
 		JButton btnRetour = JComponentBuilder.buttonBuilder("Retour", new CreditsController(frame));
@@ -25,7 +25,7 @@ public class CreditsView {
         JPanel panel = new JPanel();
         panel.add(JComponentBuilder.vboxBuilder(50, label, text, btnRetour));
 
-        frame.setContentPane(JComponentBuilder.paneBuilder("Images/background.png", panel));
+        frame.setContentPane(JComponentBuilder.paneBuilder("Images/background.gif", panel));
         frame.setVisible(true);
     }    
 }

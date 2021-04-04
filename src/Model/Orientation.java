@@ -1,5 +1,5 @@
 package Model;
 
 public enum Orientation {
-    HAUT, BAS, DROITE, GAUCHE
+    HAUT, BAS, DROITE, GAUCHE;
 }

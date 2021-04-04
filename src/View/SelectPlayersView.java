@@ -115,7 +115,7 @@ public class SelectPlayersView {
         JPanel panel = new JPanel();
         panel.add(JComponentBuilder.hboxBuilder(10, vb));
 
-        frame.setContentPane(JComponentBuilder.paneBuilder("Images/background.png", panel));
+        frame.setContentPane(JComponentBuilder.paneBuilder("Images/background.gif", panel));
         frame.setVisible(true);
     }
 }
