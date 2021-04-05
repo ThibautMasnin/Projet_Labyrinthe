@@ -21,6 +21,7 @@ public class HomeController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
 		if(event.getSource() instanceof JButton) {
+            // Lance une nouvelle vue en fonction du nom du bouton clique
             if("Jouer".equals(((JButton) event.getSource()).getName())) {
                 new SelectPlayersView(frame);
             }
@@ -33,6 +34,7 @@ public class HomeController implements ActionListener {
             else if("Parametres".equals(((JButton) event.getSource()).getName())) {
                 new ParametresView(frame);
             }
+            // Met fin au programme si le nm du bouton est "Quitter"
             else  if("Quitter".equals(((JButton) event.getSource()).getName())) {
                 System.exit(0);
             }

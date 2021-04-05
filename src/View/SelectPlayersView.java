@@ -28,6 +28,7 @@ public class SelectPlayersView {
 
     public void showView(JFrame frame, int nbJoueurs, int age1, int age2, int age3, int age4) {
 
+		/** SELECTION NOMBRE DE JOUEURS **/ 
 		JLabel lblnbJoueurs = JComponentBuilder.labelBuilder("Nombre de joueurs :", SwingConstants.CENTER);
         JComboBox<Integer> cbNbJoueurs = new JComboBox<>(new Integer[] { 2,3,4 });
         cbNbJoueurs.setSelectedItem(nbJoueurs);
@@ -36,50 +37,56 @@ public class SelectPlayersView {
         Box vbNbJoueur = JComponentBuilder.vboxBuilder(lblnbJoueurs, cbNbJoueurs);
 
 
+		/** SELECTION AGE JOUEUR 1 **/ 
         JLabel lblJoueur1 = JComponentBuilder.labelBuilder("Joueur 1 :", SwingConstants.CENTER, Color.RED);
 		JTextPane txtAge1 = JComponentBuilder.textBuilder("Age : ", StyleConstants.ALIGN_RIGHT);
         JSpinner spnAge1 = JComponentBuilder.spinnerBuilder(7, 99, age1);
-
-		/** GROUPE LE TEXTE ET LE SPINNER 1 **/ 
+		// GROUPE LE TEXTE ET LE SPINNER 1
 		Box hbAge1 = JComponentBuilder.hboxBuilder(txtAge1, spnAge1);
         
-		/** GROUPE L'ENTREE D'AGE 1 ET LE TITRE **/ 
+		// GROUPE L'ENTREE D'AGE 1 ET LE TITRE
 		Box vbJoueur1 = JComponentBuilder.vboxBuilder(lblJoueur1, hbAge1);
 
 
+		/** SELECTION AGE JOUEUR 2 **/ 
 		JLabel lblJoueur2 = JComponentBuilder.labelBuilder("Joueur 2 :", SwingConstants.CENTER, Color.ORANGE);
 		JTextPane txtAge2 = JComponentBuilder.textBuilder("Age : ", StyleConstants.ALIGN_RIGHT);
         JSpinner spnAge2 = JComponentBuilder.spinnerBuilder(7, 99, age2);
 
-		/** GROUPE LE TEXTE ET LE SPINNER 2 **/ 
+		// GROUPE LE TEXTE ET LE SPINNER 2
 		Box hbAge2 = JComponentBuilder.hboxBuilder(txtAge2, spnAge2);
         
-		/** GROUPE L'ENTREE D'AGE 2 ET LE TITRE **/ 
+		// GROUPE L'ENTREE D'AGE 2 ET LE TITRE
 		Box vbJoueur2 = JComponentBuilder.vboxBuilder(lblJoueur2, hbAge2);
+
 
         /** GROUPE LES JOUEURS 1 & 2 **/
         Box hbJoueur12 = JComponentBuilder.hboxBuilder(10, vbJoueur1, vbJoueur2);
 
 
+		/** SELECTION AGE JOUEUR 3 **/ 
 		JLabel lblJoueur3 = JComponentBuilder.labelBuilder("Joueur 3 :", SwingConstants.CENTER, Color.BLUE);
 		JTextPane txtAge3 = JComponentBuilder.textBuilder("Age : ", StyleConstants.ALIGN_RIGHT, 30, 30);
         JSpinner spnAge3 = JComponentBuilder.spinnerBuilder(7, 99, age3);
 
-		/** GROUPE LE TEXTE ET LE SPINNER 3 **/ 
+		// GROUPE LE TEXTE ET LE SPINNER 3
 		Box hbAge3 = JComponentBuilder.hboxBuilder(txtAge3, spnAge3);
         
-		/** GROUPE L'ENTREE D'AGE 3 ET LE TITRE **/ 
+		// GROUPE L'ENTREE D'AGE 3 ET LE TITRE 
 		Box vbJoueur3 = JComponentBuilder.vboxBuilder(lblJoueur3, hbAge3);
 
+
+		/** SELECTION AGE JOUEUR 4 **/ 
 		JLabel lblJoueur4 = JComponentBuilder.labelBuilder("Joueur 4 :", SwingConstants.CENTER, Color.GREEN);
 		JTextPane txtAge4 = JComponentBuilder.textBuilder("Age : ", StyleConstants.ALIGN_RIGHT);
         JSpinner spnAge4 = JComponentBuilder.spinnerBuilder(7, 99, age4);
 
-		/** GROUPE LE TEXTE ET LE SPINNER 4 **/ 
+		// GROUPE LE TEXTE ET LE SPINNER 4 
 		Box hbAge4 = JComponentBuilder.hboxBuilder(txtAge4, spnAge4);
         
-		/** GROUPE L'ENTREE D'AGE 4 ET LE TITRE **/ 
+		// GROUPE L'ENTREE D'AGE 4 ET LE TITRE  
 		Box vbJoueur4 = JComponentBuilder.vboxBuilder(lblJoueur4, hbAge4);
+
 
         /** GROUPE LES JOUEURS 3 & 4 **/
 		Box hbJoueur34 = JComponentBuilder.hboxBuilder(0);   
@@ -92,22 +99,23 @@ public class SelectPlayersView {
             hbJoueur34 = JComponentBuilder.hboxBuilder(10, vbJoueur3, vbJoueur4);
         }
 
+        // Transmet les valeurs de tous les champs si le nombre de joueurs est modifié
         cbNbJoueurs.addActionListener(e -> {
             new SelectPlayersController(frame, (int)cbNbJoueurs.getSelectedItem(), (int)spnAge1.getValue(), (int)spnAge2.getValue(), (int)spnAge3.getValue(), (int)spnAge4.getValue()).actionPerformed(e);
         });
         
+
 		/** BOUTON JOUER **/
         JButton btnJouer = JComponentBuilder.buttonBuilder("Jouer", e -> {
             new SelectPlayersController(frame, (int)cbNbJoueurs.getSelectedItem(), (int)spnAge1.getValue(), (int)spnAge2.getValue(), (int)spnAge3.getValue(), (int)spnAge4.getValue()).actionPerformed(e);
         });
-        
 		/** BOUTON RETOUR **/
         JButton btnRetour = JComponentBuilder.buttonBuilder("Retour", new SelectPlayersController(frame));
-
 
 		/** GROUPE LES BOUTONS **/
 		Box hbButtons = JComponentBuilder.hboxBuilder(25, btnRetour, btnJouer);
 
+        
 		/** GROUPE LES HBOX **/
 		Box vb = JComponentBuilder.vboxBuilder(100, vbNbJoueur, hbJoueur12, hbJoueur34, hbButtons);
 

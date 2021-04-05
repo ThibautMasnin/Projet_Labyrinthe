@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
+/** INTERFACE DES COULOIRS **/
 public interface Couloir {
     public Orientation getOrientation();
     public Forme getForme();

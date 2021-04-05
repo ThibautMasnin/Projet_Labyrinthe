@@ -11,8 +11,10 @@ public class HomeView {
 
     public HomeView(JFrame frame) {   
         
+		/** TITRE **/
         JLabel title = new JLabel(JComponentBuilder.imageIconBuilder("Images/title.png"));
 
+		/** LISTE DES BOUTONS DU MENU **/
         JButton btnJouer = JComponentBuilder.buttonBuilder("Jouer", new HomeController(frame));
         JButton btnRegles = JComponentBuilder.buttonBuilder("Regles", new HomeController(frame));        
         JButton btnCredits = JComponentBuilder.buttonBuilder("Credits", new HomeController(frame));        
@@ -20,6 +22,7 @@ public class HomeView {
         JButton btnQuitter = JComponentBuilder.buttonBuilder("Quitter", new HomeController(frame));
 
 
+		/** GROUPE ET AFFICHE VERTICALEMENT LE TITRE ET LES BOUTONS **/
         JPanel panel = new JPanel();
         panel.add(JComponentBuilder.vboxBuilder(10, JComponentBuilder.verticalSpace(50), title, JComponentBuilder.verticalSpace(100), btnJouer, btnRegles, btnCredits, btnParametres, btnQuitter));
         

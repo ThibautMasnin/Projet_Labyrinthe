@@ -18,6 +18,7 @@ public class CreditsController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
 		if(event.getSource() instanceof JButton) {
+            // Lance la vue d'acceuil si l'utilisateur a clique sur Retour
             if("Retour".equals(((JButton) event.getSource()).getName())) {
                 new HomeView(frame);
             }

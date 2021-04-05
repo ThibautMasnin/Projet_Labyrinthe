@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/** INTERFACE DU JEU **/
 public interface Jeu {
     public void modifierCouloirs(PositionInsertion pos, Orientation orientation);
     public void enregistrer(int nbJoueurs, int... ages);

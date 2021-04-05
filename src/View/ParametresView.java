@@ -19,6 +19,7 @@ public class ParametresView {
 		JButton btnRetour = JComponentBuilder.buttonBuilder("Retour", new ParametresController(frame));
 
 
+		/** GROUPE ET AFFICHE VERTICALEMENT LE TEXTE ET LE BOUTON **/
         JPanel panel = new JPanel();
         panel.add(JComponentBuilder.vboxBuilder(50, text, btnRetour));
         

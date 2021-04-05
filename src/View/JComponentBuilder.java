@@ -30,6 +30,7 @@ import java.awt.event.*;
 
 public interface JComponentBuilder {
 
+	/** RETOURNE UNE FRAME PARAMETREE **/
     public static JFrame frameBuilder() {
         JFrame frame = new JFrame("Labyrinthe");
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -41,6 +42,7 @@ public interface JComponentBuilder {
         frame.setIconImage(imageIconBuilder("Images/icon.png").getImage());
         return frame;
     }
+
 
 	/** RETOURNE UN PANE AVEC BACKGROUND **/
     public static JLayeredPane paneBuilder(String backgroundUrl, JComponent component) {
@@ -59,6 +61,7 @@ public interface JComponentBuilder {
         
         return pane;
     }
+
     
 	/** RETOURNE UN BOUTON STYLISE **/
     public static JButton buttonBuilder(String name, ActionListener listenner) {
@@ -75,6 +78,8 @@ public interface JComponentBuilder {
         return button;
     }
 
+
+	/** RETOURNE UN BOUTON FLECHE **/
     public static JButton buttonFlecheBuilder(PositionInsertion pos, ActionListener listenner, PositionInsertion origine) {
 		JButton button = new JButton();
 		button.setOpaque(false);
@@ -90,7 +95,8 @@ public interface JComponentBuilder {
         return button;
     }
     
-	/** RETOURNE UN BOUTON COULOIR **/
+
+	/** RETOURNE UN BOUTON DE COULOIR SUPPLEMENTAIRE **/
     public static JButton couloirSuppBuilder(Couloir couloir, ActionListener listenner, boolean selected) {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		JButton button = new JButton();
@@ -101,9 +107,11 @@ public interface JComponentBuilder {
         button.setSize(dim.height/12, dim.height/12);
         button.setName("supp" + couloir.getOrientation().name().charAt(0));
         ImageIcon icon = imageIconBuilder("Couloirs/" + couloir.getForme().name() + couloir.getOrientation().name().charAt(0) + ".png", dim.height/12, dim.height/12);
+        // Ajoute l'objectif sur le couloir si il en a un
         if(couloir.getObjectif() != null) {
             icon = mergeImage(icon, imageIconBuilder("Objectifs/" + couloir.getObjectif().name().toLowerCase() + ".png", dim.height/12, dim.height/12));
         }
+        // Assombri le couloir si il n'est pas selectionne
         if(!selected) {
             icon = mergeImage(icon, imageIconBuilder("Couloirs/filtre.png", dim.height/12, dim.height/12));
         }
@@ -111,6 +119,9 @@ public interface JComponentBuilder {
         button.addActionListener(listenner);
         return button;
     }
+    
+
+	/** RETOURNE UN BOUTON DE COULOIR DU PLATEAU **/
     public static JButton couloirBuilder(int i, int j, ArrayList<Joueur> joueurs, Couloir couloir, ActionListener listenner, boolean atteignable) {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         JButton button;
@@ -122,19 +133,23 @@ public interface JComponentBuilder {
         button.setSize(dim.height/12, dim.height/12);
         button.setName(i+","+j);
         ImageIcon icon = imageIconBuilder("Couloirs/" + couloir.getForme().name() + couloir.getOrientation().name().charAt(0) + ".png", dim.height/12, dim.height/12);
+        // Ajoute l'objectif sur le couloir si il en a un
         if(couloir.getObjectif() != null) {
             icon = mergeImage(icon, imageIconBuilder("Objectifs/" + couloir.getObjectif().name().toLowerCase() + ".png", dim.height/12, dim.height/12));
         }
         else {
+            // Ajoute le point d'apparition sur le couloir si il en a un
             for(Joueur joueur : joueurs) {
                 if(i==joueur.getPion().getPositionInitiale().getX() && j==joueur.getPion().getPositionInitiale().getY()) {
                     icon = mergeImage(icon, imageIconBuilder("Couloirs/spawn" + joueur.getPion().getCouleur().name() + ".png", dim.height/12, dim.height/12));
                 }
             }
         }
+        // Ajoute les pions sur le couloir si il en a
         for(Pion pion : couloir.getPions()) {
             icon = mergeImage(icon, imageIconBuilder("Couloirs/pion" + pion.getCouleur().name() + ".png", dim.height/12, dim.height/12));
         }
+        // Assombri le couloir si il n'est pas atteignable
         if(!atteignable) {
             icon = mergeImage(icon, imageIconBuilder("Couloirs/filtre.png", dim.height/12, dim.height/12));
         }
@@ -142,6 +157,7 @@ public interface JComponentBuilder {
         button.addActionListener(listenner);
         return button;
     }
+
 
 	/** RETOURNE UNE BOX VERTICALE **/
     public static Box vboxBuilder(JComponent... components) {
@@ -176,6 +192,7 @@ public interface JComponentBuilder {
         }
         return vBox;
     }
+    
 
 	/** RETOURNE LE COMPONENT DANS UNE BOX CENTREE HORIZONTALEMENT **/
     public static Box horizontalCenter(JComponent component) {
@@ -194,6 +211,7 @@ public interface JComponentBuilder {
         vBox.add(Box.createVerticalGlue());
         return vBox;
     }
+
     
 	/** RETOURNE UNE BOX HORIZONTALE DE LA TAILLE DEMANDEE **/
     public static Box horizontalSpace(int space) {
@@ -208,6 +226,7 @@ public interface JComponentBuilder {
         vBox.add(Box.createVerticalStrut(space));
         return vBox;
     }
+
     
 	/** RETOURNE UN TEXT STYLISE **/
     public static JTextPane textBuilder(String text, int pos) {
@@ -237,6 +256,7 @@ public interface JComponentBuilder {
         textPane.setPreferredSize(new Dimension(width,height));
         return textPane;
 	}
+
     
 	/** RETOURNE UN LABEL STYLISE **/
     public static JLabel labelBuilder(String text, int pos) {
@@ -259,6 +279,7 @@ public interface JComponentBuilder {
         return label;
 	}
     
+
 	/** RETOURNE UN SPINNER STYLISE **/
     public static JSpinner spinnerBuilder(int min, int max, int byDefault) {
         JSpinner spinner = new JSpinner();
@@ -300,35 +321,5 @@ public interface JComponentBuilder {
         g2d.dispose(); 
       
         return new ImageIcon(image1) ; 
-    }
-
-    public static ImageIcon joinImage(ImageIcon icon1,ImageIcon icon2) {
-        BufferedImage img1 = new BufferedImage(icon1.getImage().getWidth(null), icon1.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D Gr1 = img1.createGraphics();
-        Gr1.drawImage(icon1.getImage(), 0, 0, null);
-        Gr1.dispose();
-        BufferedImage img2 = new BufferedImage(icon2.getImage().getWidth(null), icon2.getImage().getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D Gr2 = img2.createGraphics();
-        Gr2.drawImage(icon2.getImage(), 0, 0, null);
-        Gr2.dispose();
-
-        //do some calculate first
-        int offset  = 5;
-        int width = img1.getWidth()+img2.getWidth()+offset;
-        int height = Math.max(img1.getHeight(),img2.getHeight())+offset;
-        //create a new buffer and draw two image into the new image
-        BufferedImage newImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = newImage.createGraphics();
-        Color oldColor = g2.getColor();
-        //fill background
-        g2.setPaint(Color.WHITE);
-        g2.fillRect(0, 0, width, height);
-        //draw image
-        g2.setColor(oldColor);
-        g2.drawImage(img1, null, 0, 0);
-        g2.drawImage(img2, null, img1.getWidth()+offset, 0);
-        g2.dispose();
-
-        return new ImageIcon(newImage);
     }
 }

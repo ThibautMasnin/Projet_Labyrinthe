@@ -1,5 +1,6 @@
 package Model;
 
+/** ENUM DES POSITIONS AUXQUELLES LE JOUEUR PEUT INSERER LE COULOIR SUPPLEMENTAIRE **/
 public enum PositionInsertion {
     H1, H3, H5, B1, B3, B5, D1, D3, D5, G1, G3, G5;
 

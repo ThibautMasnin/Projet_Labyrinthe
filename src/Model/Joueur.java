@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/** INTERFACE DES JOUEURS **/
 public interface Joueur {
     public int getAge();
     public void modifieCouloir();

@@ -1,5 +1,6 @@
 package Model;
 
+/** POSITION POUR LES COULOIRS ET LES PIONS **/
 public class Position {
     private int x;
     private int y;
@@ -27,7 +28,7 @@ public class Position {
 
     @Override
     public String toString() {
-        return "("+x+","+y+")";
+        return "(" + x + "," + y + ")";
     }
 
     @Override

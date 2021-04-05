@@ -38,6 +38,7 @@ public class SelectPlayersController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
 		if(event.getSource() instanceof JButton) {
+            // Lance la vue correspondante si l'utilisateur a clique sur un bouton
             if("Jouer".equals(((JButton) event.getSource()).getName())) { 
                 JeuImpl jeu = new JeuImpl(frame);
                 jeu.enregistrer(nbJoueurs, age1, age2, age3, age4);
@@ -52,6 +53,7 @@ public class SelectPlayersController implements ActionListener {
             }
         }
         else if(event.getSource() instanceof JComboBox) {
+            // Sinon relance la vue de selection des joueurs avec le bon nombre de champs joueurs
             if("nbJoueurs".equals(((JComboBox) event.getSource()).getName())) {
                 new SelectPlayersView(JComponentBuilder.frameBuilder(), nbJoueurs, age1, age2, age3, age4);
                 frame.dispose();

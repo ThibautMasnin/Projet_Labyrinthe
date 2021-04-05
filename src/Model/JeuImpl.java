@@ -31,6 +31,7 @@ public class JeuImpl extends Thread implements Jeu {
         return this.holder;
     }
 
+    /** DEMANDE AU PLATEAU D'INSERER LE COULOIR SUPPLEMENTAIRE A L'ENDROIT DEMANDE **/
     @Override
     public void modifierCouloirs(PositionInsertion position, Orientation orientation) {
         supplementaire.changerOrientation(orientation);
@@ -38,6 +39,8 @@ public class JeuImpl extends Thread implements Jeu {
         this.supplementaire = plateau.modifierCouloirs(position, supplementaire);
     }
 
+    
+    /** ENREGISTRE LES JOUEURS A PARTIR DU NOMBRE ET DES AGES **/
     @Override
     public void enregistrer(int nbJoueurs, int... ages) {
         if(positionOrigine==null) {
@@ -98,26 +101,27 @@ public class JeuImpl extends Thread implements Jeu {
         }
     }
 
+    /** DEMARRE LE JEU ET LA PARTIE **/
     @Override
     public void run() {
         boolean first=true;
 
         preparer();
         Joueur joueur=joueurs.get(0);
-        //Selectionne le joueur le plus jeune
+        // Selectionne le joueur le plus jeune
         for(int i=1; i<joueurs.size(); i++) {
             if(joueurs.get(i).getAge()<joueur.getAge()) {
                 joueur=joueurs.get(i);
             }
         }
-        //Met le joueur le plus jeune au debut de la liste
+        // Met le joueur le plus jeune au debut de la liste
         while(!joueur.equals(prochainJoueur()));
         
         for(Joueur j : joueurs) {
             plateau.getCouloir(j.getPion().getPositionCourante()).getPions().add(j.getPion());
         }
 
-        //Boucle tant qu'aucun joueur n'a gagne
+        // Boucle tant qu'aucun joueur n'a gagne
         do {
             if(!first) {            
                 joueur = prochainJoueur();
@@ -130,14 +134,17 @@ public class JeuImpl extends Thread implements Jeu {
             new BoardView(frame, this, joueur);
             joueur.deplacePion();
         } while(!aGagne(joueur));
+        // Affiche le joueur gagnant
         new EndView(frame, joueur);
     }
 
+    /** RETOURNE LE JOUEUR SUIVANT ET MET L'ACTUEL EN BOUT DE LISTE **/
     private Joueur prochainJoueur(){
         joueurs.add(joueurs.remove(0));
         return joueurs.get(0);
     }
 
+    /** RETOURNE TRUE SI LE JOUEUR A GAGNE SINON FALSE **/
     private boolean aGagne(Joueur joueur){
         return joueur.getObjectifs().isEmpty() && joueur.getPion().getPositionCourante().equals(joueur.getPion().getPositionInitiale());
     }

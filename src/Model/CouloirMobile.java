@@ -16,11 +16,13 @@ public class CouloirMobile extends CouloirImpl {
         this.posee=true;
     }
 
+    /** RETIRE LE COULOIR ET SES PIONS **/
     public void retirer() {
         getPions().clear();
         this.posee=false;
     }
 
+    /** CHANGE L'ORIENTATION SI LE COULOIR N'EST PAS POSE **/
     public void changerOrientation(Orientation orientation) {
         if(!posee) {
             this.setOrientation(orientation);

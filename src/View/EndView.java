@@ -37,7 +37,8 @@ public class EndView {
 		/** BOUTON Quitter **/
 		JButton btnQuitter = JComponentBuilder.buttonBuilder("Quitter", new EndController(frame));
 
-
+        
+		/** GROUPE ET AFFICHE VERTICALEMENT LE TEXTE ET LE BOUTON **/
         JPanel panel = new JPanel();
         panel.add(JComponentBuilder.vboxBuilder(25, lblFin, JComponentBuilder.verticalSpace(100), lblJoueur, lblGagne, JComponentBuilder.verticalSpace(100), btnQuitter));
 

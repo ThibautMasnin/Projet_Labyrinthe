@@ -42,6 +42,7 @@ public class PionImpl implements Pion {
         return this.positionInitiale;
     }
 
+    /** DEPLACE LE PION A LA POSITION ENTREE ET SUR LE BON COULOIR, RETOURNE L'OBJECTIF DU COULOIR **/
     @Override
     public Objectif deplacer(Position pos) {
         plateau.getCouloir(positionCourante).getPions().remove(this);
@@ -50,6 +51,7 @@ public class PionImpl implements Pion {
         return plateau.getCouloir(pos).getObjectif();
     }
 
+    /** DEPLACE LE PION A LA POSITION ENTREE ET SUR LE BON COULOIR **/
     @Override
     public void poserA(Position pos) {
         plateau.getCouloir(positionCourante).getPions().remove(this);

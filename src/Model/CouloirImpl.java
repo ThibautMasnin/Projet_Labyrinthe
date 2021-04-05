@@ -23,18 +23,22 @@ public class CouloirImpl implements Couloir {
         this.pions = new ArrayList<>();
     }
 
+    /** RETOURNE UN COULOIR FIXE **/
     public static CouloirFixe couloirFixeBuilder(Forme forme, Orientation orientation, Objectif objectif) {
         return new CouloirFixe(forme, orientation, objectif);
     }
 
+    /** RETOURNE UN COULOIR FIXE AVEC OBJECTIF **/
     public static CouloirFixe couloirFixeBuilder(Forme forme, Orientation orientation) {
         return new CouloirFixe(forme, orientation);
     }
 
+    /** RETOURNE UN COULOIR MOBILE **/
     public static CouloirMobile couloirMobileBuilder(Forme forme, Orientation orientation) {
         return new CouloirMobile(forme, orientation);
     }
 
+    /** RETOURNE UN COULOIR MOBILE AVEC OBJECTIF **/
     public static CouloirMobile couloirMobileBuilder(Forme forme, Orientation orientation, Objectif objectif) {
         return new CouloirMobile(forme, orientation, objectif);
     }
@@ -60,6 +64,7 @@ public class CouloirImpl implements Couloir {
         return pions;
     }
     
+    /** RETOURNE UNE LISTE DE DIRECTIONS VERS LESQUELLES SE DIRIGE LE COULOIR **/
     @Override
     public ArrayList<Direction> getDirections() {
         ArrayList<Direction> directions = new ArrayList<>();

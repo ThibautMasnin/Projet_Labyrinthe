@@ -26,11 +26,13 @@ public class JoueurImpl implements Joueur {
         return this.pion;
     }
 
+    /** DEMANDE A L'UTILISATEUR COMMENT IL VEUT INSERER LE COULOIR SUPPLEMENTAIRE **/
     @Override
     public void modifieCouloir() {
         PositionInsertion pos = null;
         Orientation ori = null;
         String holder = null;
+        // Boucle tant que la position d'insertion et l'orientation entrées ne sont pas correcte
         while(ori==null || pos==null) {
             synchronized (jeu.getHolder()) {
                 while (jeu.getHolder().isEmpty()) {
@@ -53,9 +55,11 @@ public class JoueurImpl implements Joueur {
         jeu.modifierCouloirs(pos, ori);
     }
 
+    /** DEMANDE A L'UTILISATEUR COMMENT IL VEUT DEPLACER SON PION **/
     @Override
     public void deplacePion() {
         String sPos = null;
+        // Boucle tant que la position entrée n'est pas correcte ou pas atteignable
         while(sPos==null || sPos.length()!=3 || sPos.charAt(1)!=',' || !jeu.getPlateau().estAtteignable(pion.getPositionCourante(), new Position(Character.getNumericValue(sPos.charAt(0)), Character.getNumericValue(sPos.charAt(2))))) {
             synchronized (jeu.getHolder()) {
                 while (jeu.getHolder().isEmpty()) {
@@ -70,6 +74,7 @@ public class JoueurImpl implements Joueur {
             }    
         }
         Objectif obj = this.pion.deplacer(new Position(Character.getNumericValue(sPos.charAt(0)), Character.getNumericValue(sPos.charAt(2))));
+        // Retire l'objectif si le pion est deplace dessus
         if(!objectifs.isEmpty() && obj == getObjectifActuel()) {
             objectifs.remove(obj);
         }
@@ -85,6 +90,7 @@ public class JoueurImpl implements Joueur {
         this.pion=p;
     }
 
+    /** RETOURNE UNE ORIENTATION A PARTIR D'UNE CHAINE DE CARACTERES **/
     private Orientation choisirOrientationCouloir(String sOri) {
         if("H".equals(sOri)) {
             return Orientation.HAUT;
@@ -101,6 +107,7 @@ public class JoueurImpl implements Joueur {
         return null;
     }
 
+    /** RETOURNE UNE POSITION D'INSERTION A PARTIR D'UNE CHAINE DE CARACTERES **/
     private PositionInsertion choisirPositionInsertionCouloir(String sPos) {
         if("H1".equals(sPos)) {
             return PositionInsertion.H1;
