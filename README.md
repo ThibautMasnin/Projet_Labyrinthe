@@ -1,5 +1,3 @@
-# PROJET PROGRAMMATION WEB
-
 # PROJET COO : Labyrinthe
 
 
