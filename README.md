@@ -1,14 +1,34 @@
-## Getting Started
+# PROJET PROGRAMMATION WEB
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+# PROJET COO : Labyrinthe
 
-## Folder Structure
 
-The workspace contains two folders by default, where:
+## Groupe : 
+- Thibaut MASNIN
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-## Dependency Management
+## Jouer :
+Dans le menu :
+- Cliquer sur Jouer
 
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+Dans la selection des joueurs :
+- Selectionner le nombre de joueurs
+- Entrer leurs ages
+- Cliquer sur Jouer
+
+Dans le jeu :
+- Selectionner l'orientation du couloir supplementaire en cliquant dessus a gauche
+- Selectionner où vous voulez l'introduire sur le plateau en cliquant sur une des fleches
+- Selectionner le couloir que vous voulez rejoindre en cliquant dessus
+- Le joueur suivant fait la meme chose jusqu'a ce qu'un des joueurs n'a plus d'objectifs et est revenu a son point de depart
+
+
+## Rendu attendu :
+![Vue du menu](https://nsa40.casimages.com/img/2021/04/05/210405105137992309.png "vue du menu")
+![Vue du plateau](https://nsa40.casimages.com/img/2021/04/05/210405105015931072.png "vue du plateau")
+
+
+## Manque : 
+- Vue Regles
+- Vue Parametres
+- Musiques et effets sonores
